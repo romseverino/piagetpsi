@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Técnica e Teórica do Projeto PsiCare</title>
+    <style>
+        :root {
+            --primary-color: #2c7a7b; /* Verde Azulado */
+            --secondary-color: #234e52;
+            --text-color: #2d3748;
+            --bg-color: #f7fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--white);
+            padding: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #718096;
+            font-style: italic;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-top: 40px;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+            font-size: 1.2rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--secondary-color);
+        }
+
+        /* Tabela de Resumo */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--white);
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+
+        /* Botão de Impressão */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background 0.3s;
+        }
+
+        .print-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media print {
+            .print-btn { display: none; }
+            body { background-color: white; }
+            .container { box-shadow: none; margin: 0; padding: 0; width: 100%; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+
+    <div class="container">
+        <header>
+            <h1>Projeto de Software: PsiCare</h1>
+            <p class="subtitle">Sistema de Gestão Clínica - Documentação Técnica e Teórica</p>
+        </header>
+
+        <p>Este é um projeto abrangente que une a prática de desenvolvimento de software com os requisitos teóricos solicitados. Abaixo, apresento o Projeto "PsiCare", um sistema de gestão para clínicas psicológicas, estruturado para atender a todos os pontos do seu pedido (Ética, Arquitetura, Ciclo de Vida e Metodologias).</p>
+
+        <section>
+            <h2>1. Aspectos Éticos e Legais (Fundamento Crítico)</h2>
+            <p>Antes de escrever uma linha de código, o desenvolvimento de software para saúde mental exige rigor ético extremo. No Brasil, isso é regido pelo <strong>Código de Ética dos Psicólogos</strong> e pela <strong>LGPD (Lei Geral de Proteção de Dados)</strong>.</p>
+            <ul>
+                <li><strong>Sigilo e Confidencialidade:</strong> O sistema deve garantir que apenas o psicólogo responsável e o paciente tenham acesso aos dados.</li>
+                <li><strong>Criptografia:</strong>
+                    <ul>
+                        <li><em>Em repouso:</em> O banco de dados deve ser criptografado (AES-256).</li>
+                        <li><em>Em trânsito:</em> Uso obrigatório de protocolos HTTPS/TLS.</li>
+                    </ul>
+                </li>
+                <li><strong>Auditoria (Logs):</strong> Todo acesso a um prontuário deve ser registrado (Quem acessou, quando e o que foi visualizado), sem permitir a exclusão desses logs.</li>
+                <li><strong>Backups Seguros:</strong> Rotinas automáticas de backup em locais seguros e isolados.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Fundamentos e Objetivos da Arquitetura de Software</h2>
+            <p>A arquitetura define a estrutura do sistema. Para o PsiCare, o objetivo é <strong>Segurança, Escalabilidade e Manutenibilidade</strong>.</p>
+            <ul>
+                <li><strong>Padrão Arquitetural Escolhido:</strong> Arquitetura em Camadas (Layered Architecture) com abordagem Cloud-Native.
+                    <ul>
+                        <li><em>Apresentação (Frontend):</em> Aplicação Web Responsiva (React.js ou Vue.js) para acesso via navegador e mobile.</li>
+                        <li><em>Regra de Negócio (Backend):</em> API RESTful (Node.js ou Python/Django) que processa as lógicas de agendamento e prontuário.</li>
+                        <li><em>Dados (Persistência):</em> Banco de Dados Relacional (PostgreSQL) para dados estruturados e armazenamento de arquivos (prontuários em PDF) em Object Storage (ex: AWS S3) com criptografia.</li>
+                    </ul>
+                </li>
+                <li><strong>Objetivo da Arquitetura:</strong> Desacoplamento. Se precisarmos mudar o banco de dados ou a interface, o núcleo do sistema (regras de negócio) não é afetado.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Paradigmas de Desenvolvimento e Evolução</h2>
+            <p>O software deve ser construído utilizando paradigmas que facilitem a evolução futura.</p>
+            <ul>
+                <li><strong>Programação Orientada a Objetos (POO):</strong>
+                    <ul>
+                        <li>Utilizada para modelar a realidade da clínica.</li>
+                        <li><em>Classes:</em> Paciente, Psicologo, Sessao, Prontuario.</li>
+                        <li><em>Benefício:</em> Facilita a reutilização de código e a organização lógica.</li>
+                    </ul>
+                </li>
+                <li><strong>Programação Funcional:</strong>
+                    <ul>
+                        <li>Utilizada para transformações de dados imutáveis (ex: gerar relatórios financeiros ou cálculos de sessões), garantindo que o estado original dos dados do paciente não seja corrompido acidentalmente.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Ciclo de Vida do Software (SDLC)</h2>
+            <p>O ciclo de vida descreve as fases pelas quais o software passa. Para o PsiCare:</p>
+            <ul>
+                <li><strong>Requisitos:</strong> Levantamento das necessidades (Agendamento, Prontuário Eletrônico, Telemedicina, Financeiro).</li>
+                <li><strong>Análise e Design:</strong> Definição da arquitetura de banco de dados e prototipagem das telas (UI/UX).</li>
+                <li><strong>Implementação (Codificação):</strong> Desenvolvimento das funcionalidades seguindo padrões de código limpo (Clean Code).</li>
+                <li><strong>Testes:</strong>
+                    <ul>
+                        <li><em>Unitários:</em> Testar funções isoladas.</li>
+                        <li><em>Integração:</em> Testar se o agendamento salva corretamente no banco.</li>
+                        <li><em>Segurança:</em> Pentests para tentar violar o sigilo.</li>
+                    </ul>
+                </li>
+                <li><strong>Implantação (Deploy):</strong> Colocar o sistema no ar (Servidores na nuvem).</li>
+                <li><strong>Manutenção:</strong> Correção de bugs e atualização conforme novas leis surgirem.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Processo de Desenvolvimento: Tradicional vs. Ágil</h2>
+            <p>Aqui comparamos como o projeto poderia ser gerido sob diferentes óticas.</p>
+
+            <h3>A. Modelos Tradicionais (Cascata / Waterfall)</h3>
+            <ul>
+                <li><strong>Como funcionaria:</strong> Primeiro, escreveríamos todo o documento de requisitos. Depois, faríamos todo o design. Só então começaríamos a codificar. O cliente só veria o sistema pronto no final.</li>
+                <li><strong>Vantagem:</strong> Documentação robusta, bom para contratos fixos de escopo.</li>
+                <li><strong>Desvantagem para Clínica:</strong> Se o psicólogo perceber que a tela de "Evolução" está difícil de usar apenas no final do projeto, refazer tudo custará caro e demorado.</li>
+                <li><strong>Modelo Espiral:</strong> Uma variação tradicional focada em riscos. Seria útil aqui para validar a segurança dos dados antes de construir as funcionalidades visuais.</li>
+            </ul>
+
+            <h3>B. Modelos Ágeis (Scrum / Kanban) - Escolha Recomendada</h3>
+            <ul>
+                <li><strong>Como funcionaria:</strong> O desenvolvimento é dividido em ciclos curtos (Sprints) de 2 semanas.
+                    <ul>
+                        <li><em>Sprint 1:</em> Cadastro de pacientes e Login seguro.</li>
+                        <li><em>Sprint 2:</em> Agenda básica.</li>
+                        <li><em>Sprint 3:</em> Prontuário eletrônico.</li>
+                    </ul>
+                </li>
+                <li><strong>Vantagem:</strong> Feedback constante. O psicólogo usa a agenda na segunda semana e sugere melhorias que são implementadas na próxima.</li>
+                <li><strong>Entrega de Valor:</strong> O software evolui continuamente, entregando valor desde o primeiro mês.</li>
+            </ul>
+
+            <h3>C. DevOps (Cultura de Desenvolvimento e Operações)</h3>
+            <p>Para um sistema profissional moderno, adotamos o DevOps integrado ao Ágil.</p>
+            <ul>
+                <li><strong>CI/CD (Integração e Entrega Contínuas):</strong>
+                    <ul>
+                        <li>Sempre que um desenvolvedor salva o código, um robô (Pipeline) roda testes automáticos.</li>
+                        <li>Se os testes passarem, o sistema é atualizado automaticamente no servidor de produção.</li>
+                    </ul>
+                </li>
+                <li><strong>Monitoramento:</strong> Ferramentas monitoram se o sistema está lento ou se há tentativas de invasão em tempo real.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Funcionalidades do Sistema (Escopo Prático)</h2>
+            <p>Para materializar o sistema, estas seriam as módulos principais:</p>
+            <ul>
+                <li><strong>Módulo de Acesso (IAM):</strong> Login com autenticação de dois fatores (2FA) para garantir que só o profissional acesse.</li>
+                <li><strong>Gestão de Pacientes:</strong>
+                    <ul>
+                        <li>Dados pessoais.</li>
+                        <li>Termo de Consentimento Livre e Esclarecido (TCLE) digital.</li>
+                        <li>Anamnese inicial.</li>
+                    </ul>
+                </li>
+                <li><strong>Prontuário Eletrônico (PEP):</strong>
+                    <ul>
+                        <li>Registro de evoluções por sessão (texto rico).</li>
+                        <li>Histórico de atendimento.</li>
+                        <li>Bloqueio de edição após 24h (para garantir integridade do registro, permitindo apenas adendo).</li>
+                    </ul>
+                </li>
+                <li><strong>Agenda Inteligente:</strong>
+                    <ul>
+                        <li>Marcação de consultas presenciais e online.</li>
+                        <li>Lembretes automáticos via WhatsApp/E-mail.</li>
+                        <li>Link automático para sala de videoconferência (integração com Zoom/Google Meet).</li>
+                    </ul>
+                </li>
+                <li><strong>Financeiro:</strong>
+                    <ul>
+                        <li>Controle de recebimentos.</li>
+                        <li>Emissão de recibos para reembolso de convênio.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Resumo da Aplicação dos Conceitos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Conceito Teórico</th>
+                        <th>Aplicação no Projeto PsiCare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ética</strong></td>
+                        <td>Criptografia de ponta a ponta e Logs de auditoria imutáveis (LGPD).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arquitetura</strong></td>
+                        <td>Microsserviços ou Monolito Modular em Nuvem para escalabilidade.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ciclo de Vida</strong></td>
+                        <td>Foco intenso na fase de Testes de Segurança antes do Deploy.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tradicional vs Ágil</strong></td>
+                        <td>Adoção do Ágil (Scrum) para adaptação rápida às necessidades dos psicólogos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DevOps</strong></td>
+                        <td>Automação de testes e deploy para garantir que atualizações não quebrem o sistema.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Paradigmas</strong></td>
+                        <td>Uso de POO para modelagem de entidades (Paciente, Sessão) e Funcional para dados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #e2e8f0; text-align: center; color: #718096; font-size: 0.9rem;">
+            <p>Este plano demonstra não apenas "o que" o sistema faz, mas "como" ele é construído profissionalmente, respeitando as normas da engenharia de software e a sensibilidade da área da saúde.</p>
+        </div>
+    </div>
+
+</body>
+</html>

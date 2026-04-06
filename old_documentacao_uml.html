@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação UML - PsiCare</title>
+    <!-- Importando Mermaid.js para renderizar os diagramas -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c7a7b;
+            --secondary: #2d3748;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--secondary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { margin-top: 10px; opacity: 0.9; }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px dashed #cbd5e0;
+        }
+
+        .description {
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+
+        code {
+            background: #edf2f7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #c53030;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PsiCare</h1>
+        <p>Documentação de Arquitetura e Modelagem UML</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. Visão Geral -->
+        <div class="section">
+            <h2>1. Visão Geral do Sistema</h2>
+            <p class="description">
+                O sistema PsiCare é uma plataforma SaaS para gestão de clínicas psicológicas. 
+                O foco principal é a segurança dos dados (LGPD), agilidade no agendamento e 
+                registro clínico estruturado.
+            </p>
+        </div>
+
+        <!-- 2. Diagrama de Casos de Uso -->
+        <div class="section">
+            <h2>2. Diagrama de Casos de Uso</h2>
+            <p class="description">
+                Este diagrama ilustra as interações entre os atores (Psicólogo, Paciente, Administrador) 
+                e as funcionalidades do sistema.
+            </p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    usecaseDiagram
+                    actor "Psicólogo" as P
+                    actor "Paciente" as PA
+                    actor "Administrador" as A
+
+                    package "Sistema PsiCare" {
+                        usecase "Gerenciar Agenda" as UC1
+                        usecase "Emitir Prontuário" as UC2
+                        usecase "Realizar Teleconsulta" as UC3
+                        usecase "Gerenciar Financeiro" as UC4
+                        usecase "Visualizar Prontuário" as UC5
+                        usecase "Agendar Consulta" as UC6
+                        usecase "Configurar Sistema" as UC7
+                    }
+
+                    P --> UC1
+                    P --> UC2
+                    P --> UC3
+                    P --> UC4
+                    P --> UC5
+                    
+                    PA --> UC6
+                    PA --> UC5
+                    PA --> UC3
+
+                    A --> UC7
+                    A --> UC4
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Diagrama de Classes -->
+        <div class="section">
+            <h2>3. Diagrama de Classes</h2>
+            <p class="description">
+                Representação da estrutura de dados e relacionamentos entre as entidades principais.
+                Note a relação de composição entre <code>Psicologo</code> e <code>Prontuario</code>.
+            </p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    classDiagram
+                    class Usuario {
+                        +int id
+                        +string nome
+                        +string email
+                        +string senhaHash
+                        +login()
+                        +logout()
+                    }
+
+                    class Psicologo {
+                        +string crp
+                        +string especialidade
+                        +float valorConsulta
+                        +gerarRelatorio()
+                    }
+
+                    class Paciente {
+                        +string dataNascimento
+                        +string telefone
+                        +string endereco
+                        +anamnese
+                    }
+
+                    class Prontuario {
+                        +int id
+                        +string evolucao
+                        +date dataSessao
+                        +bool sigiloso
+                        +criarEvolucao()
+                    }
+
+                    class Agenda {
+                        +date data
+                        +time horaInicio
+                        +time horaFim
+                        +string tipo (Online/Presencial)
+                        +confirmar()
+                        +cancelar()
+                    }
+
+                    class Pagamento {
+                        +float valor
+                        +string status
+                        +string metodo
+                        +processarPagamento()
+                    }
+
+                    Usuario <|-- Psicologo
+                    Usuario <|-- Paciente
+                    Psicologo "1" *-- "0..*" Prontuario : possui
+                    Paciente "1" *-- "0..*" Prontuario : possui
+                    Psicologo "1" *-- "0..*" Agenda : gerencia
+                    Paciente "1" *-- "0..*" Agenda : participa
+                    Agenda "1" --> "0..1" Pagamento : gera
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Diagrama de Sequência -->
+        <div class="section">
+            <h2>4. Diagrama de Sequência (Fluxo de Agendamento)</h2>
+            <p class="description">
+                Detalha a interação temporal entre o Paciente, a Interface, a API e o Banco de Dados 
+                durante o processo de marcar uma consulta.
+            </p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    sequenceDiagram
+                    participant P as Paciente
+                    participant UI as Interface Web
+                    participant API as API Backend
+                    participant DB as Banco de Dados
+
+                    P->>UI: Seleciona Horário Disponível
+                    UI->>API: POST /api/agendamentos (dados)
+                    API->>DB: Verificar disponibilidade
+                    DB-->>API: Horário Livre
+                    API->>DB: Salvar Agendamento
+                    DB-->>API: Sucesso (ID: 123)
+                    API-->>UI: Retorna Confirmação
+                    UI->>P: Exibe Mensagem de Sucesso
+                    UI->>P: Envia E-mail de Confirmação
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Diagrama de Atividade -->
+        <div class="section">
+            <h2>5. Diagrama de Atividade (Fluxo de Atendimento)</h2>
+            <p class="description">
+                Fluxograma lógico das etapas que o psicólogo percorre durante uma sessão clínica no sistema.
+            </p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    flowchart TD
+                    Start([Início da Sessão]) --> CheckPac{Paciente Presente?}
+                    CheckPac -- Não --> Cancel[Cancelar/Remarcar]
+                    CheckPac -- Sim --> OpenPront[Abre Prontuário]
+                    OpenPront --> Review[Revisar Sessão Anterior]
+                    Review --> Session[Realizar Atendimento]
+                    Session --> Notes[Redigir Evolução]
+                    Notes --> Save{Salvar Dados?}
+                    Save -- Sim --> Encrypt[Criptografar Registro]
+                    Encrypt --> Finish([Fim da Sessão])
+                    Save -- Não --> Notes
+                    Cancel --> Finish
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Diagrama de Componentes -->
+        <div class="section">
+            <h2>6. Diagrama de Componentes (Arquitetura)</h2>
+            <p class="description">
+                Visão macro da arquitetura do software, separando Frontend, Backend e Serviços Externos.
+            </p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    C4Context
+                    title Diagrama de Contexto do Sistema PsiCare
+
+                    Person(psicologo, "Psicólogo", "Profissional que utiliza o sistema para gestão clínica.")
+                    Person(paciente, "Paciente", "Usuário final que agenda consultas e acessa portal.")
+                    Person(admin, "Administrador", "Responsável pela configuração e financeiro da clínica.")
+
+                    System_Boundary(b1, "PsiCare System") {
+                        Container(web_app, "Aplicação Web", "React/Vue", "Interface principal para todos os usuários.")
+                        Container(api, "API REST", "Node.js/Python", "Regras de negócio e autenticação.")
+                        ContainerDb(db, "Banco de Dados", "PostgreSQL", "Armazenamento de dados clínicos e usuários.")
+                        ContainerDb(files, "Object Storage", "AWS S3", "Armazenamento seguro de documentos e anexos.")
+                    }
+
+                    System_Ext(email, "Serviço de E-mail", "SendGrid/AWS SES", "Envio de lembretes e recuperações.")
+                    System_Ext(payment, "Gateway de Pagamento", "Stripe/Pagar.me", "Processamento de cartões.")
+
+                    Rel(psicologo, web_app, "Utiliza", "HTTPS")
+                    Rel(paciente, web_app, "Agenda/Acessa", "HTTPS")
+                    Rel(admin, web_app, "Gerencia", "HTTPS")
+                    Rel(web_app, api, "Consome", "JSON/HTTPS")
+                    Rel(api, db, "Lê/Escreve", "SQL")
+                    Rel(api, files, "Upload/Download", "HTTPS")
+                    Rel(api, email, "Envia Notificações", "SMTP")
+                    Rel(api, payment, "Processa Transações", "API")
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Inicializa o Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+        });
+    </script>
+</body>
+</html>

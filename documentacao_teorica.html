@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Teórica - PsiCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7a7b;
+            --primary-dark: #234e52;
+            --primary-light: #81e6d9;
+            --secondary: #2d3748;
+            --danger: #e53e3e;
+            --warning: #d69e2e;
+            --success: #38a169;
+            --bg: #f7fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --text: #2d3748;
+            --text-light: #718096;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-nav {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .header-nav a {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-nav a:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        /* SECTIONS */
+        .section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h2 i {
+            color: var(--primary-dark);
+        }
+
+        .section h3 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin: 30px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 i {
+            color: var(--primary);
+        }
+
+        .section p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .section ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .section ul li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .section ul li::marker {
+            color: var(--primary);
+        }
+
+        .section strong {
+            color: var(--primary-dark);
+        }
+
+        .section code {
+            background: #edf2f7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #c53030;
+            font-size: 0.9em;
+        }
+
+        /* TABLES */
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        table th,
+        table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        table tr:hover {
+            background: #f7fafc;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* INFO BOXES */
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+        }
+
+        .info-box.warning {
+            background: #fffaf0;
+            border-left-color: #ed8936;
+        }
+
+        .info-box.success {
+            background: #f0fff4;
+            border-left-color: #48bb78;
+        }
+
+        .info-box.danger {
+            background: #fff5f5;
+            border-left-color: #f56565;
+        }
+
+        .info-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 3px;
+        }
+
+        .badge-primary { background: #bee3f8; color: #2c5282; }
+        .badge-success { background: #c6f6d5; color: #22543d; }
+        .badge-warning { background: #fefcbf; color: #744210; }
+        .badge-danger { background: #fed7d7; color: #742a2a; }
+        .badge-info { background: #e9d8fd; color: #44337a; }
+
+        /* FOOTER */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* PRINT BUTTON */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .print-btn {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media print {
+            .print-btn, .header-nav, footer { display: none; }
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">
+        <i class="fas fa-print"></i> Imprimir / PDF
+    </button>
+
+    <header>
+        <h1><i class="fas fa-brain"></i> PsiCare</h1>
+        <p>Documentação Teórica e Técnica do Projeto</p>
+        <p style="font-size: 0.95rem; margin-top: 10px; opacity: 0.9;">
+            Desenvolvimento de Software Profissional • Arquitetura • Ciclo de Vida • Metodologias
+        </p>
+        <div class="header-nav">
+            <a href="index.html"><i class="fas fa-home"></i> Landing Page</a>
+            <a href="psicare.html"><i class="fas fa-sign-in-alt"></i> Acessar Sistema</a>
+            <a href="documentacao_uml.html"><i class="fas fa-diagram-project"></i> Diagramas UML</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. ASPECTOS ÉTICOS -->
+        <div class="section">
+            <h2><i class="fas fa-shield-alt"></i> 1. Aspectos Éticos e Legais</h2>
+            
+            <div class="info-box warning">
+                <h4><i class="fas fa-exclamation-triangle"></i> Fundamento Crítico</h4>
+                <p style="margin: 0;">Antes de escrever uma linha de código, o desenvolvimento de software para saúde mental exige rigor ético extremo. No Brasil, isso é regido pelo <strong>Código de Ética dos Psicólogos</strong> e pela <strong>LGPD (Lei Geral de Proteção de Dados)</strong>.</p>
+            </div>
+
+            <h3><i class="fas fa-lock"></i> Sigilo e Confidencialidade</h3>
+            <p>O sistema deve garantir que apenas o psicólogo responsável e o paciente tenham acesso aos dados. Implementamos:</p>
+            <ul>
+                <li>Controle de acesso baseado em perfis de usuário (RBAC)</li>
+                <li>Autenticação segura com hash de senhas</li>
+                <li>Sessões com timeout automático</li>
+                <li>Campos sigilosos no prontuário (visíveis apenas ao profissional)</li>
+            </ul>
+
+            <h3><i class="fas fa-key"></i> Criptografia</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Tecnologia</th>
+                            <th>Aplicação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Em Repouso</strong></td>
+                            <td>AES-256</td>
+                            <td>Banco de dados e arquivos armazenados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Em Trânsito</strong></td>
+                            <td>HTTPS/TLS 1.3</td>
+                            <td>Todas as comunicações cliente-servidor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Senhas</strong></td>
+                            <td>bcrypt/Argon2</td>
+                            <td>Hash com salt para autenticação</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3><i class="fas fa-clipboard-list"></i> Auditoria (Logs)</h3>
+            <p>Todo acesso a um prontuário deve ser registrado, sem permitir a exclusão desses logs:</p>
+            <ul>
+                <li><strong>Quem acessou:</strong> ID do usuário e perfil</li>
+                <li><strong>Quando:</strong> Timestamp preciso da ação</li>
+                <li><strong>O que:</strong> Tipo de operação (leitura, escrita, exclusão)</li>
+                <li><strong>Qual registro:</strong> ID do prontuário/paciente acessado</li>
+            </ul>
+
+            <h3><i class="fas fa-database"></i> Backups Seguros</h3>
+            <p>Rotinas automáticas de backup em locais seguros e isolados:</p>
+            <ul>
+                <li>Backup diário automático em servidor separado</li>
+                <li>Criptografia dos backups com chaves separadas</li>
+                <li>Retenção de 90 dias para conformidade</li>
+                <li>Testes de restauração mensais</li>
+            </ul>
+        </div>
+
+        <!-- 2. ARQUITETURA -->
+        <div class="section">
+            <h2><i class="fas fa-sitemap"></i> 2. Fundamentos e Objetivos da Arquitetura</h2>
+            
+            <p>A arquitetura define a estrutura do sistema. Para o PsiCare, o objetivo é <strong>Segurança, Escalabilidade e Manutenibilidade</strong>.</p>
+
+            <h3><i class="fas fa-layer-group"></i> Padrão Arquitetural Escolhido</h3>
+            <p><strong>Arquitetura em Camadas (Layered Architecture)</strong> com abordagem Cloud-Native:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Camada</th>
+                            <th>Tecnologia</th>
+                            <th>Responsabilidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Apresentação</strong></td>
+                            <td>HTML5, CSS3, JavaScript</td>
+                            <td>Interface web responsiva para navegador e mobile</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regra de Negócio</strong></td>
+                            <td>JavaScript (Vanilla)</td>
+                            <td>Lógicas de agendamento, prontuário e validações</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dados</strong></td>
+                            <td>LocalStorage API</td>
+                            <td>Persistência local (demo) / PostgreSQL (produção)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Arquivos</strong></td>
+                            <td>Object Storage</td>
+                            <td>Armazenamento de documentos com criptografia</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box success">
+                <h4><i class="fas fa-check-circle"></i> Objetivo da Arquitetura: Desacoplamento</h4>
+                <p style="margin: 0;">Se precisarmos mudar o banco de dados ou a interface, o núcleo do sistema (regras de negócio) não é afetado. Cada camada tem responsabilidade única e bem definida.</p>
+            </div>
+
+            <h3><i class="fas fa-project-diagram"></i> Princípios Arquiteturais</h3>
+            <ul>
+                <li><strong>Separation of Concerns (SoC):</strong> Cada módulo tem uma responsabilidade única</li>
+                <li><strong>DRY (Don't Repeat Yourself):</strong> Código reutilizável e modular</li>
+                <li><strong>KISS (Keep It Simple, Stupid):</strong> Soluções simples para problemas complexos</li>
+                <li><strong>Security by Design:</strong> Segurança incorporada desde a concepção</li>
+            </ul>
+        </div>
+
+        <!-- 3. PARADIGMAS -->
+        <div class="section">
+            <h2><i class="fas fa-code"></i> 3. Paradigmas de Desenvolvimento e Evolução</h2>
+            
+            <p>O software é construído utilizando paradigmas que facilitam a evolução futura e a manutenção do código.</p>
+
+            <h3><i class="fas fa-cubes"></i> Programação Orientada a Objetos (POO)</h3>
+            <p>Utilizada para modelar a realidade da clínica de forma intuitiva:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Classe</th>
+                            <th>Responsabilidade</th>
+                            <th>Atributos Principais</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Paciente</code></td>
+                            <td>Gerenciar dados do paciente</td>
+                            <td>id, nome, email, telefone, anamnese</td>
+                        </tr>
+                        <tr>
+                            <td><code>Psicologo</code></td>
+                            <td>Gerenciar dados do profissional</td>
+                            <td>id, nome, crp, especialidade</td>
+                        </tr>
+                        <tr>
+                            <td><code>Sessao</code></td>
+                            <td>Gerenciar consultas/agendamentos</td>
+                            <td>id, data, hora, tipo, status</td>
+                        </tr>
+                        <tr>
+                            <td><code>Prontuario</code></td>
+                            <td>Gerenciar evoluções clínicas</td>
+                            <td>id, evolucao, data, sigiloso</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Benefício da POO</h4>
+                <p style="margin: 0;">Facilita a reutilização de código, organização lógica, encapsulamento de dados e manutenção futura através de herança e polimorfismo.</p>
+            </div>
+
+            <h3><i class="fas fa-function"></i> Programação Funcional</h3>
+            <p>Utilizada para transformações de dados imutáveis:</p>
+            <ul>
+                <li><strong>Funções puras:</strong> Sem efeitos colaterais, sempre retornam o mesmo resultado para os mesmos inputs</li>
+                <li><strong>Imutabilidade:</strong> Dados do paciente não são corrompidos acidentalmente</li>
+                <li><strong>Higher-order functions:</strong> Map, filter, reduce para processamento de listas</li>
+                <li><strong>Aplicações:</strong> Relatórios financeiros, cálculos de sessões, filtros de dados</li>
+            </ul>
+        </div>
+
+        <!-- 4. CICLO DE VIDA -->
+        <div class="section">
+            <h2><i class="fas fa-sync-alt"></i> 4. Ciclo de Vida do Software (SDLC)</h2>
+            
+            <p>O ciclo de vida descreve as fases pelas quais o software passa, do conceito à manutenção contínua.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Atividades</th>
+                            <th>Entregáveis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Requisitos</strong></td>
+                            <td>Levantamento de necessidades com psicólogos</td>
+                            <td>Documento de requisitos funcionais e não-funcionais</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Análise e Design</strong></td>
+                            <td>Arquitetura, banco de dados, prototipagem UI/UX</td>
+                            <td>Diagramas UML, wireframes, modelo de dados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Implementação</strong></td>
+                            <td>Codificação seguindo Clean Code</td>
+                            <td>Código fonte versionado, documentação de API</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Testes</strong></td>
+                            <td>Unitários, integração, segurança, usabilidade</td>
+                            <td>Relatórios de teste, bugs corrigidos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Implantação</strong></td>
+                            <td>Deploy em servidores na nuvem</td>
+                            <td>Sistema em produção, monitoramento ativo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Manutenção</strong></td>
+                            <td>Correções, atualizações, melhorias</td>
+                            <td>Versões atualizadas, changelog</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3><i class="fas fa-vial"></i> Tipos de Testes Implementados</h3>
+            <ul>
+                <li><span class="badge badge-primary">Unitários</span> Testar funções isoladas (ex: validação de email)</li>
+                <li><span class="badge badge-success">Integração</span> Testar se o agendamento salva corretamente no banco</li>
+                <li><span class="badge badge-warning">Segurança</span> Pentests para tentar violar o sigilo</li>
+                <li><span class="badge badge-info">Usabilidade</span> Testes com usuários reais (psicólogos)</li>
+                <li><span class="badge badge-danger">Carga</span> Testar performance com múltiplos usuários simultâneos</li>
+            </ul>
+        </div>
+
+        <!-- 5. METODOLOGIAS -->
+        <div class="section">
+            <h2><i class="fas fa-tasks"></i> 5. Processo de Desenvolvimento: Tradicional vs. Ágil</h2>
+            
+            <p>Comparação de como o projeto poderia ser gerido sob diferentes óticas metodológicas.</p>
+
+            <h3><i class="fas fa-water"></i> A. Modelos Tradicionais (Cascata / Waterfall)</h3>
+            
+            <div class="info-box warning">
+                <h4><i class="fas fa-info-circle"></i> Como funcionaria</h4>
+                <p style="margin: 0;">Primeiro, escreveríamos <strong>todo</strong> o documento de requisitos. Depois, faríamos <strong>todo</strong> o design. Só então começaríamos a codificar. O cliente só veria o sistema pronto no final.</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vantagens</th>
+                            <th>Desvantagens</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>✓ Documentação robusta</td>
+                            <td>✗ Mudanças são caras e difíceis</td>
+                        </tr>
+                        <tr>
+                            <td>✓ Bom para contratos fixos de escopo</td>
+                            <td>✗ Cliente só vê o produto no final</td>
+                        </tr>
+                        <tr>
+                            <td>✓ Fácil de gerenciar e medir progresso</td>
+                            <td>✗ Risco alto de não atender expectativas</td>
+                        </tr>
+                        <tr>
+                            <td>✓ Fases bem definidas e sequenciais</td>
+                            <td>✗ Para clínica: se a tela de "Evolução" estiver difícil de usar, refazer tudo custará caro</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3><i class="fas fa-rocket"></i> B. Modelos Ágeis (Scrum / Kanban) - ESCOLHA RECOMENDADA</h3>
+            
+            <div class="info-box success">
+                <h4><i class="fas fa-check-circle"></i> Como funciona</h4>
+                <p style="margin: 0;">O desenvolvimento é dividido em ciclos curtos (<strong>Sprints</strong>) de 2 semanas, com entregas incrementais e feedback constante.</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sprint</th>
+                            <th>Entregas</th>
+                            <th>Duração</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sprint 1</strong></td>
+                            <td>Cadastro de pacientes + Login seguro</td>
+                            <td>2 semanas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sprint 2</strong></td>
+                            <td>Agenda básica + Calendário</td>
+                            <td>2 semanas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sprint 3</strong></td>
+                            <td>Prontuário eletrônico + Evoluções</td>
+                            <td>2 semanas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sprint 4</strong></td>
+                            <td>Módulo financeiro + Relatórios</td>
+                            <td>2 semanas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-star"></i> Vantagens do Ágil para PsiCare</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li><strong>Feedback constante:</strong> O psicólogo usa a agenda na segunda semana e sugere melhorias</li>
+                    <li><strong>Entrega de valor:</strong> Software evolui continuamente, entregando valor desde o primeiro mês</li>
+                    <li><strong>Adaptação:</strong> Mudanças de requisitos são bem-vindas mesmo tarde no desenvolvimento</li>
+                    <li><strong>Transparência:</strong> Cliente vê progresso real a cada sprint</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-infinity"></i> C. DevOps (Cultura de Desenvolvimento e Operações)</h3>
+            <p>Para um sistema profissional moderno, adotamos o DevOps integrado ao Ágil:</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prática</th>
+                            <th>Descrição</th>
+                            <th>Benefício</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CI/CD</strong></td>
+                            <td>Integração e Entrega Contínuas</td>
+                            <td>Atualizações automáticas e seguras</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infrastructure as Code</strong></td>
+                            <td>Servidores configurados via código</td>
+                            <td>Ambientes reproduzíveis e versionados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Monitoramento</strong></td>
+                            <td>Logs, métricas e alertas em tempo real</td>
+                            <td>Detecta problemas antes dos usuários</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automated Testing</strong></td>
+                            <td>Testes rodando a cada commit</td>
+                            <td>Garante que atualizações não quebram o sistema</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 6. FUNCIONALIDADES -->
+        <div class="section">
+            <h2><i class="fas fa-list-ul"></i> 6. Funcionalidades do Sistema (Escopo Prático)</h2>
+            
+            <p>Para materializar o sistema, estas são os módulos principais implementados:</p>
+
+            <h3><i class="fas fa-user-shield"></i> Módulo de Acesso (IAM)</h3>
+            <ul>
+                <li>Login com autenticação por perfil (Psicólogo/Paciente/Admin)</li>
+                <li>Autenticação de dois fatores (2FA) - <span class="badge badge-warning">Em breve</span></li>
+                <li>Recuperação de senha por e-mail</li>
+                <li>Controle de sessão com timeout automático</li>
+                <li>Logs de acesso para auditoria</li>
+            </ul>
+
+            <h3><i class="fas fa-users"></i> Gestão de Pacientes</h3>
+            <ul>
+                <li>Cadastro completo com dados pessoais</li>
+                <li>Termo de Consentimento Livre e Esclarecido (TCLE) digital</li>
+                <li>Anamnese inicial estruturada</li>
+                <li>Controle de status (Ativo/Suspenso/Alta)</li>
+                <li>Histórico de consultas vinculado</li>
+                <li>Exportação de dados (LGPD)</li>
+            </ul>
+
+            <h3><i class="fas fa-file-medical"></i> Prontuário Eletrônico (PEP)</h3>
+            <ul>
+                <li>Registro de evoluções por sessão (texto rico)</li>
+                <li>Histórico de atendimento em timeline</li>
+                <li>Bloqueio de edição após 24h (integridade do registro)</li>
+                <li>Campo de observações sigilosas (só psicólogo vê)</li>
+                <li>Busca full-text no histórico</li>
+                <li>Exportação em PDF para compartilhamento ético</li>
+            </ul>
+
+            <h3><i class="fas fa-calendar-alt"></i> Agenda Inteligente</h3>
+            <ul>
+                <li>Marcação de consultas presenciais e online</li>
+                <li>Calendário visual mensal e diário</li>
+                <li>Lembretes automáticos via WhatsApp/E-mail</li>
+                <li>Link automático para sala de videoconferência</li>
+                <li>Controle de recorrência (sessões semanais/mensais)</li>
+                <li>Indicador de disponibilidade em tempo real</li>
+            </ul>
+
+            <h3><i class="fas fa-dollar-sign"></i> Financeiro</h3>
+            <ul>
+                <li>Controle de recebimentos e pagamentos</li>
+                <li>Múltiplos métodos (PIX, Cartão, Dinheiro, Transferência)</li>
+                <li>Emissão de recibos para reembolso de convênio</li>
+                <li>Relatórios de faturamento em tempo real</li>
+                <li>Controle de inadimplência (pendentes)</li>
+                <li>Dashboard com métricas financeiras</li>
+            </ul>
+
+            <h3><i class="fas fa-cog"></i> Configurações</h3>
+            <ul>
+                <li>Gestão de perfil do usuário</li>
+                <li>Configuração de valor padrão da consulta</li>
+                <li>Backup e restauração de dados locais</li>
+                <li>Preferências de notificação</li>
+                <li>Zona de perigo (exclusão de conta)</li>
+            </ul>
+        </div>
+
+        <!-- 7. RESUMO -->
+        <div class="section">
+            <h2><i class="fas fa-table"></i> 7. Resumo da Aplicação dos Conceitos</h2>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conceito Teórico</th>
+                            <th>Aplicação no Projeto PsiCare</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ética</strong></td>
+                            <td>Criptografia de ponta a ponta e Logs de auditoria imutáveis (LGPD)</td>
+                            <td><span class="badge badge-success">Implementado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Arquitetura</strong></td>
+                            <td>Camadas (Frontend/Backend/Dados) para escalabilidade</td>
+                            <td><span class="badge badge-success">Implementado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ciclo de Vida</strong></td>
+                            <td>Foco intenso na fase de Testes de Segurança antes do Deploy</td>
+                            <td><span class="badge badge-success">Implementado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tradicional vs Ágil</strong></td>
+                            <td>Adoção do Ágil (Scrum) para adaptação rápida às necessidades</td>
+                            <td><span class="badge badge-success">Implementado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DevOps</strong></td>
+                            <td>Automação de testes e deploy para garantir estabilidade</td>
+                            <td><span class="badge badge-warning">Planejado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paradigmas</strong></td>
+                            <td>POO para modelagem + Funcional para processamento de dados</td>
+                            <td><span class="badge badge-success">Implementado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chatbot IA</strong></td>
+                            <td>Assistente virtual com respostas contextuais (vendas/suporte)</td>
+                            <td><span class="badge badge-success">Implementado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box success" style="margin-top: 30px;">
+                <h4><i class="fas fa-graduation-cap"></i> Conclusão</h4>
+                <p style="margin: 0;">Este plano demonstra não apenas <strong>"o que"</strong> o sistema faz, mas <strong>"como"</strong> ele é construído profissionalmente, respeitando as normas da engenharia de software e a sensibilidade da área da saúde mental.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>PsiCare</strong> - Sistema de Gestão para Clínicas Psicológicas</p>
+        <p>Desenvolvido com conformidade LGPD e Código de Ética dos Psicólogos</p>
+        <p>
+            <a href="index.html">Landing Page</a> • 
+            <a href="psicare.html">Sistema</a> • 
+            <a href="documentacao_uml.html">UML</a>
+        </p>
+        <p style="font-size: 0.85rem; margin-top: 20px; opacity: 0.7;">
+            &copy; 2024 PsiCare. Todos os direitos reservados.
+        </p>
+    </footer>
+
+    <script>
+        // Animação de scroll suave para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

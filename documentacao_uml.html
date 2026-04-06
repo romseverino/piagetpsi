@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação UML - PsiCare</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7a7b;
+            --primary-dark: #234e52;
+            --primary-light: #81e6d9;
+            --secondary: #2d3748;
+            --bg: #f7fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --text: #2d3748;
+            --text-light: #718096;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-nav {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .header-nav a {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-nav a:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+
+        /* SECTIONS */
+        .section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h2 i {
+            color: var(--primary-dark);
+        }
+
+        .description {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* DIAGRAM CONTAINER */
+        .diagram-container {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px dashed var(--border);
+            margin: 25px 0;
+            overflow-x: auto;
+        }
+
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* INFO BOXES */
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 25px 0;
+        }
+
+        .info-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        /* LEGEND */
+        .legend {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .legend h4 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .legend-symbol {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-light);
+            border-radius: 4px;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        /* PRINT BUTTON */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .print-btn {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media print {
+            .print-btn, .header-nav, footer { display: none; }
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">
+        <i class="fas fa-print"></i> Imprimir / PDF
+    </button>
+
+    <header>
+        <h1><i class="fas fa-project-diagram"></i> PsiCare UML</h1>
+        <p>Documentação de Arquitetura e Modelagem do Sistema</p>
+        <div class="header-nav">
+            <a href="index.html"><i class="fas fa-home"></i> Landing Page</a>
+            <a href="psicare.html"><i class="fas fa-sign-in-alt"></i> Acessar Sistema</a>
+            <a href="documentacao_teorica.html"><i class="fas fa-book"></i> Documentação Teórica</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. VISÃO GERAL -->
+        <div class="section">
+            <h2><i class="fas fa-eye"></i> 1. Visão Geral do Sistema</h2>
+            <p class="description">
+                O sistema PsiCare é uma plataforma SaaS para gestão de clínicas psicológicas. 
+                O foco principal é a segurança dos dados (LGPD), agilidade no agendamento e 
+                registro clínico estruturado. Esta documentação apresenta os diagramas UML que 
+                modelam a estrutura e comportamento do sistema.
+            </p>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-info-circle"></i> Escopo da Modelagem</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Diagrama de Casos de Uso - Funcionalidades e atores</li>
+                    <li>Diagrama de Classes - Estrutura de dados e relacionamentos</li>
+                    <li>Diagrama de Sequência - Fluxo temporal de operações</li>
+                    <li>Diagrama de Atividade - Fluxos de processo</li>
+                    <li>Diagrama de Componentes - Arquitetura do sistema</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. CASOS DE USO -->
+        <div class="section">
+            <h2><i class="fas fa-users"></i> 2. Diagrama de Casos de Uso</h2>
+            <p class="description">
+                Este diagrama ilustra as interações entre os atores (Psicólogo, Paciente, Administrador) 
+                e as funcionalidades do sistema. Cada caso de uso representa uma funcionalidade completa 
+                que entrega valor ao usuário.
+            </p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+usecaseDiagram
+    actor "👨‍⚕️ Psicólogo" as P
+    actor "👤 Paciente" as PA
+    actor "👨‍💼 Administrador" as A
+
+    package "📦 Sistema PsiCare" {
+        usecase "📅 Gerenciar Agenda" as UC1
+        usecase "📋 Emitir Prontuário" as UC2
+        usecase "📹 Realizar Teleconsulta" as UC3
+        usecase "💰 Gerenciar Financeiro" as UC4
+        usecase "👁️ Visualizar Prontuário" as UC5
+        usecase "📝 Agendar Consulta" as UC6
+        usecase "⚙️ Configurar Sistema" as UC7
+        usecase "👥 Cadastrar Paciente" as UC8
+    }
+
+    P --> UC1
+    P --> UC2
+    P --> UC3
+    P --> UC4
+    P --> UC5
+    P --> UC8
+    
+    PA --> UC6
+    PA --> UC5
+    PA --> UC3
+
+    A --> UC7
+    A --> UC4
+    A --> UC8
+                </div>
+            </div>
+
+            <div class="legend">
+                <h4><i class="fas fa-key"></i> Legenda</h4>
+                <div class="legend-item">
+                    <span class="legend-symbol">👨‍⚕️</span>
+                    <span><strong>Psicólogo:</strong> Profissional que utiliza o sistema para gestão clínica completa</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">👤</span>
+                    <span><strong>Paciente:</strong> Usuário final que agenda consultas e acessa seu prontuário</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">👨‍💼</span>
+                    <span><strong>Administrador:</strong> Responsável pela configuração e financeiro da clínica</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. DIAGRAMA DE CLASSES -->
+        <div class="section">
+            <h2><i class="fas fa-sitemap"></i> 3. Diagrama de Classes</h2>
+            <p class="description">
+                Representação da estrutura de dados e relacionamentos entre as entidades principais.
+                Note a relação de composição entre <code>Psicologo</code> e <code>Prontuario</code>, 
+                e a herança entre <code>Usuario</code> e suas especializações.
+            </p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+classDiagram
+    class Usuario {
+        +int id
+        +string nome
+        +string email
+        +string senhaHash
+        +date createdAt
+        +login()
+        +logout()
+        +updateProfile()
+    }
+
+    class Psicologo {
+        +string crp
+        +string especialidade
+        +float valorConsulta
+        +string endereco
+        +gerarRelatorio()
+        +exportarDados()
+    }
+
+    class Paciente {
+        +string dataNascimento
+        +string telefone
+        +string endereco
+        +string anamnese
+        +string status
+        +getHistorico()
+    }
+
+    class Prontuario {
+        +int id
+        +string evolucao
+        +date dataSessao
+        +bool sigiloso
+        +string observacoes
+        +criarEvolucao()
+        +editarEvolucao()
+        +exportarPDF()
+    }
+
+    class Agenda {
+        +int id
+        +date data
+        +time horaInicio
+        +time horaFim
+        +string tipo
+        +string status
+        +confirmar()
+        +cancelar()
+        +reagendar()
+    }
+
+    class Pagamento {
+        +int id
+        +float valor
+        +string status
+        +string metodo
+        +date dataVencimento
+        +processarPagamento()
+        +emitirRecibo()
+    }
+
+    Usuario <|-- Psicologo
+    Usuario <|-- Paciente
+    Psicologo "1" *-- "0..*" Prontuario : possui
+    Paciente "1" *-- "0..*" Prontuario : possui
+    Psicologo "1" *-- "0..*" Agenda : gerencia
+    Paciente "1" *-- "0..*" Agenda : participa
+    Agenda "1" --> "0..1" Pagamento : gera
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Relacionamentos Importantes</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li><strong>Herança (</strong><code>--|&gt;</code><strong>):</strong> Psicólogo e Paciente herdam de Usuário</li>
+                    <li><strong>Composição (</strong><code>*--</code><strong>):</strong> Prontuário pertence a Psicólogo e Paciente</li>
+                    <li><strong>Associação (</strong><code>--&gt;</code><strong>):</strong> Agenda gera Pagamento (opcional)</li>
+                    <li><strong>Multiplicidade:</strong> 1 psicólogo tem 0..* prontuários, 1 paciente tem 0..* agendas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. DIAGRAMA DE SEQUÊNCIA -->
+        <div class="section">
+            <h2><i class="fas fa-exchange-alt"></i> 4. Diagrama de Sequência (Fluxo de Agendamento)</h2>
+            <p class="description">
+                Detalha a interação temporal entre o Paciente, a Interface, a API e o Banco de Dados 
+                durante o processo de marcar uma consulta. Mostra a sequência exata de mensagens 
+                trocadas entre os objetos do sistema.
+            </p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant P as 👤 Paciente
+    participant UI as 🖥️ Interface Web
+    participant API as ⚙️ API Backend
+    participant DB as 💾 Banco de Dados
+    participant Email as 📧 Serviço de E-mail
+
+    P->>UI: Seleciona Horário Disponível
+    UI->>API: POST /api/agendamentos (dados)
+    API->>DB: Verificar disponibilidade
+    DB-->>API: Horário Livre ✅
+    API->>DB: Salvar Agendamento
+    DB-->>API: Sucesso (ID: 123)
+    API->>Email: Enviar confirmação
+    Email-->>API: E-mail enviado ✅
+    API-->>UI: Retorna Confirmação
+    UI->>P: Exibe Mensagem de Sucesso
+    UI->>P: Envia E-mail de Confirmação
+                </div>
+            </div>
+
+            <div class="legend">
+                <h4><i class="fas fa-info-circle"></i> Explicação do Fluxo</h4>
+                <ol style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li>Paciente seleciona horário na interface</li>
+                    <li>Interface envia dados para API via POST</li>
+                    <li>API verifica disponibilidade no banco de dados</li>
+                    <li>Se disponível, salva o agendamento</li>
+                    <li>API solicita envio de e-mail de confirmação</li>
+                    <li>Confirmação é retornada para interface e paciente</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 5. DIAGRAMA DE ATIVIDADE -->
+        <div class="section">
+            <h2><i class="fas fa-tasks"></i> 5. Diagrama de Atividade (Fluxo de Atendimento)</h2>
+            <p class="description">
+                Fluxograma lógico das etapas que o psicólogo percorre durante uma sessão clínica no sistema.
+                Inclui decisões, paralelismo e pontos de sincronização.
+            </p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+flowchart TD
+    Start([🟢 Início da Sessão]) --> CheckPac{Paciente<br/>Presente?}
+    
+    CheckPac -- ❌ Não --> Cancel[Cancelar/<br/>Remarcar]
+    CheckPac -- ✅ Sim --> OpenPront[Abre<br/>Prontuário]
+    
+    OpenPront --> Review[Revisar Sessão<br/>Anterior]
+    Review --> Session[Realizar<br/>Atendimento]
+    Session --> Notes[Redigir<br/>Evolução]
+    
+    Notes --> Save{Salvar<br/>Dados?}
+    Save -- ✅ Sim --> Encrypt[Criptografar<br/>Registro]
+    Save -- ❌ Não --> Notes
+    
+    Encrypt --> Log[Registrar<br/>Log de Auditoria]
+    Log --> Notify[Notificar<br/>Paciente]
+    Notify --> Finish([🔴 Fim da Sessão])
+    
+    Cancel --> Finish
+    
+    style Start fill:#38a169,color:white
+    style Finish fill:#e53e3e,color:white
+    style Encrypt fill:#2c7a7b,color:white
+    style Log fill:#d69e2e,color:white
+                </div>
+            </div>
+
+            <div class="info-box warning">
+                <h4><i class="fas fa-shield-alt"></i> Pontos de Segurança</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li><strong>Criptografar Registro:</strong> Dados sensíveis são criptografados antes de salvar</li>
+                    <li><strong>Registrar Log:</strong> Toda ação é auditada para conformidade LGPD</li>
+                    <li><strong>Decisão de Salvamento:</strong> Psicólogo pode revisar antes de confirmar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 6. DIAGRAMA DE COMPONENTES -->
+        <div class="section">
+            <h2><i class="fas fa-puzzle-piece"></i> 6. Diagrama de Componentes (Arquitetura)</h2>
+            <p class="description">
+                Visão macro da arquitetura do software, separando Frontend, Backend e Serviços Externos.
+                Utiliza notação C4 para clareza na comunicação entre componentes.
+            </p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+C4Context
+    title Diagrama de Contexto do Sistema PsiCare
+
+    Person(psicologo, "👨‍⚕️ Psicólogo", "Profissional que utiliza o sistema para gestão clínica.")
+    Person(paciente, "👤 Paciente", "Usuário final que agenda consultas e acessa portal.")
+    Person(admin, "👨‍💼 Administrador", "Responsável pela configuração e financeiro da clínica.")
+
+    System_Boundary(b1, "📦 PsiCare System") {
+        Container(web_app, "🖥️ Aplicação Web", "HTML5/CSS3/JS", "Interface principal para todos os usuários.")
+        Container(api, "⚙️ API REST", "Node.js/Python", "Regras de negócio e autenticação.")
+        ContainerDb(db, "💾 Banco de Dados", "PostgreSQL", "Armazenamento de dados clínicos e usuários.")
+        ContainerDb(files, "📁 Object Storage", "AWS S3", "Armazenamento seguro de documentos e anexos.")
+    }
+
+    System_Ext(email, "📧 Serviço de E-mail", "SendGrid/AWS SES", "Envio de lembretes e recuperações.")
+    System_Ext(payment, "💳 Gateway de Pagamento", "Stripe/Pagar.me", "Processamento de cartões.")
+    System_Ext(video, "📹 Videoconferência", "Zoom/Google Meet", "Consultas online.")
+
+    Rel(psicologo, web_app, "Utiliza", "HTTPS")
+    Rel(paciente, web_app, "Agenda/Acessa", "HTTPS")
+    Rel(admin, web_app, "Gerencia", "HTTPS")
+    Rel(web_app, api, "Consome", "JSON/HTTPS")
+    Rel(api, db, "Lê/Escreve", "SQL")
+    Rel(api, files, "Upload/Download", "HTTPS")
+    Rel(api, email, "Envia Notificações", "SMTP")
+    Rel(api, payment, "Processa Transações", "API")
+    Rel(api, video, "Gera Links", "API")
+                </div>
+            </div>
+
+            <div class="legend">
+                <h4><i class="fas fa-network-wired"></i> Componentes Principais</h4>
+                <div class="legend-item">
+                    <span class="legend-symbol">🖥️</span>
+                    <span><strong>Aplicação Web:</strong> Frontend responsivo acessível via navegador</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">⚙️</span>
+                    <span><strong>API REST:</strong> Backend que processa regras de negócio</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">💾</span>
+                    <span><strong>Banco de Dados:</strong> PostgreSQL para dados estruturados</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">📁</span>
+                    <span><strong>Object Storage:</strong> AWS S3 para documentos e anexos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. RESUMO -->
+        <div class="section">
+            <h2><i class="fas fa-clipboard-check"></i> 7. Resumo da Modelagem UML</h2>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Diagrama</th>
+                            <th>Propósito</th>
+                            <th>Público-Alvo</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Casos de Uso</strong></td>
+                            <td>Funcionalidades e atores do sistema</td>
+                            <td>Stakeholders, Analistas</td>
+                            <td><span class="badge badge-success">Completo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Classes</strong></td>
+                            <td>Estrutura de dados e relacionamentos</td>
+                            <td>Desenvolvedores, DBA</td>
+                            <td><span class="badge badge-success">Completo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sequência</strong></td>
+                            <td>Fluxo temporal de operações</td>
+                            <td>Desenvolvedores Backend</td>
+                            <td><span class="badge badge-success">Completo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Atividade</strong></td>
+                            <td>Fluxos de processo e decisões</td>
+                            <td>Analistas de Negócio</td>
+                            <td><span class="badge badge-success">Completo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Componentes</strong></td>
+                            <td>Arquitetura e integrações</td>
+                            <td>Arquitetos, DevOps</td>
+                            <td><span class="badge badge-success">Completo</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box success" style="margin-top: 30px;">
+                <h4><i class="fas fa-check-circle"></i> Benefícios da Modelagem UML</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li><strong>Comunicação clara:</strong> Diagramas facilitam entendimento entre equipe e stakeholders</li>
+                    <li><strong>Documentação viva:</strong> UML serve como referência durante todo o ciclo de vida</li>
+                    <li><strong>Detecção precoce de erros:</strong> Problemas de design são identificados antes da codificação</li>
+                    <li><strong>Manutenibilidade:</strong> Nova equipe entende o sistema rapidamente através dos diagramas</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>PsiCare</strong> - Sistema de Gestão para Clínicas Psicológicas</p>
+        <p>Modelagem UML com Mermaid.js • Renderização automática no navegador</p>
+        <p>
+            <a href="index.html">Landing Page</a> • 
+            <a href="psicare.html">Sistema</a> • 
+            <a href="documentacao_teorica.html">Teórica</a>
+        </p>
+        <p style="font-size: 0.85rem; margin-top: 20px; opacity: 0.7;">
+            &copy; 2024 PsiCare. Todos os direitos reservados.
+        </p>
+    </footer>
+
+    <script>
+        // Inicializa o Mermaid com configuração personalizada
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10
+            }
+        });
+
+        // Animação de scroll suave para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
